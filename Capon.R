@@ -42,3 +42,4 @@ capon_rejection = function(n, m,
   crit = qnorm(p, mean = n, sd = sqrt(capon_stat_var(n, m)), lower.tail = FALSE)
   sum(s > crit)/repl
 }
+
