@@ -41,10 +41,10 @@ find_rejection_matrix <- function(nvec, mvec,
     }
   }
   close(pb) #pb
-  write.csv(reject_prob, sprintf("data/%s -- theta=%.3f -- %s -- %s.csv", 
+  write.csv(reject_prob, sprintf("data/%s -- theta=%.3f -- %s -- n:%s -- m:%s.csv", 
                                  as.character(substitute(stat_rejection)),
                                  theta, as.character(substitute(rdist)), 
-                                 paste(nvec, collapse = ", ")))
+                                 paste(nvec, collapse = ", "), paste(mvec, collapse = ", ")))
   reject_prob
 }
 
@@ -56,7 +56,7 @@ normality_matrix <- function(nvec, mvec, repl=1000,
   pb <- txtProgressBar(style = 3, min = 1, max = length(mvec) * length(nvec), initial = 1)
   k <- 1
   #shapiro wilk test matrix
-  testmat = matrix(0,3,3)
+  testmat = matrix(0, length(nvec), length(mvec))
   rownames(testmat) <- nvec; colnames(testmat) <- mvec; 
   for(i in nvec){
     for(j in mvec){
