@@ -39,7 +39,7 @@ capon_rejection = function(n, m,
                            repl = 1000, p = 0.05) #total replication, and level
 {
   s = replicate(repl, simulate_capon(n, m, rdist, theta))
-  crit = qnorm(p, mean = n, sd = sqrt(capon_stat_var(n, m)), lower.tail = FALSE)
-  sum(s > crit)/repl
+  crit = qnorm(p, mean = n, sd = sqrt(capon_stat_var(n, m)), lower.tail = lower.tail)
+  s = sum(s > crit)/repl
 }
 
