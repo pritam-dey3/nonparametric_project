@@ -32,16 +32,16 @@ find_rejection_matrix <- function(nvec, mvec,
   k <- 1
   #rejection probability
   reject_prob = matrix(0,length(mvec),length(nvec))
-  rownames(reject_prob) <- nvec; colnames(reject_prob) <- mvec; 
-  for(i in nvec){
-    for(j in mvec){
-      reject_prob[st(i), st(j)] = stat_rejection(i, j, rdist, theta, repl, p)
+  rownames(reject_prob) <- mvec; colnames(reject_prob) <- nvec; 
+  for(j in mvec){
+    for(i in nvec){
+      reject_prob[st(j), st(i)] = stat_rejection(i, j, rdist, theta, repl, p)
       k <- k + 1 #pb
       setTxtProgressBar(pb, k) #pb
     }
   }
   close(pb) #pb
-  write.csv(reject_prob, sprintf("data/%s -- theta=%.3f -- %s -- n:%s -- m:%s.csv", 
+  write.csv(reject_prob, sprintf("data/%s -- theta=%.3f -- %s -- n-%s -- m-%s.csv", 
                                  as.character(substitute(stat_rejection)),
                                  theta, as.character(substitute(rdist)), 
                                  paste(nvec, collapse = ", "), paste(mvec, collapse = ", ")))
