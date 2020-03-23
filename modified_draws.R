@@ -15,8 +15,8 @@ rNorm <- function(n, theta=1) {
   rnorm(n, mean = 0, sd = theta)
 }
 
-rGamma <- function(n, theta, location=0.5){
-  rgamma(n, location = location, scale = theta)
+rCauchy <- function(n, theta, location=0.5){
+  rcauchy(n, location = location, scale = theta)
 }
 
 rLogis <- function(n, theta, location=0.5){
