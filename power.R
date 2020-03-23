@@ -20,14 +20,14 @@ power_curve <- function(n, m, from=0.2, to=1, len=30,
   xyplot(power ~ theta, xlim = c(to + 0.2, from - 0.2))
 }
 
-power_curve(30, 30, rdist = rExp, len=50, stat_rejection = savage_rejection, repl=250)
+power_curve(30, 30, rdist = rExp, len=1000, stat_rejection = savage_rejection, repl=10000)
 power_curve(30, 30, len = 50, rdist = rWeibull, stat_rejection = savage_rejection, repl=250)
 power_curve(30, 30, len = 50, rdist = rGamma, stat_rejection = savage_rejection, repl=250)
 power_curve(30, 30, len = 50, rdist = rNorm, stat_rejection = savage_rejection, repl=250)
 
 #get the data and plot
-gamma.savage.3030 <- read.csv("data/power -- savage_rejection (30, 30) -- rGamma -- 0.20, 1.00, 50.00 -- repl=250.csv")[,-1]
 exp.savage.3030 <- read.csv("data/power -- savage_rejection (30, 30) -- rExp -- 0.20, 1.00, 50.00 -- repl=250.csv")[,-1]
+gamma.savage.3030 <- read.csv("data/power -- savage_rejection (30, 30) -- rGamma -- 0.20, 1.00, 50.00 -- repl=250.csv")[,-1]
 norm.savage.3030 <- read.csv("data/power -- savage_rejection (30, 30) -- rNorm -- 0.20, 1.00, 50.00 -- repl=250.csv")[,-1]
 weibull.savage.3030 <- read.csv("data/power -- savage_rejection (30, 30) -- rWeibull -- 0.20, 1.00, 50.00 -- repl=250.csv")[,-1]
 
@@ -55,3 +55,21 @@ xyplot(exp.capon.3030 + gamma.capon.3030 + weibull.capon.3030 + norm.capon.3030 
        xlim = c(1 + 0.2, 0.2 - 0.2),
        auto.key = TRUE,
        type = c("b"), cex=1.2)
+
+
+
+#for barick to simulate
+
+power_curve(30, 30, len = 1000, rdist = rGamma, stat_rejection = savage_rejection, repl=1000)
+power_curve(30, 30, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
+power_curve(30, 30, len = 1000, rdist = rWeibull, stat_rejection = capon_rejection, repl=1000)
+
+power_curve(30, 30, len = 50, rdist = rExp, stat_rejection = capon_rejection, repl=1000)
+power_curve(30, 30, len = 50, rdist = rWeibull, stat_rejection = capon_rejection, repl=1000)
+power_curve(30, 30, len = 50, rdist = rGamma, stat_rejection = capon_rejection, repl=1000)
+power_curve(30, 30, len = 50, rdist = rNorm, stat_rejection = capon_rejection, repl=1000)
+
+power_curve(20, 30, len = 1000, rdist = rExp, stat_rejection = savage_rejection, repl=1000)
+power_curve(20, 30, len = 1000, rdist = rGamma, stat_rejection = savage_rejection, repl=1000)
+power_curve(30, 30, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
+power_curve(30, 30, len = 1000, rdist = rWeibull, stat_rejection = capon_rejection, repl=1000)
