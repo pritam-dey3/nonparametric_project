@@ -14,3 +14,11 @@ rWeibull <- function(n, theta, shape=0.5){
 rNorm <- function(n, theta=1) {
   rnorm(n, mean = 0, sd = theta)
 }
+
+rCauchy <- function(n, theta, location=0.5){
+  rcauchy(n, location = location, scale = theta)
+}
+
+rLogis <- function(n, theta, location=0.5){
+  rlogis(n, location = location, scale = theta)
+}
