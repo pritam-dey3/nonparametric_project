@@ -1,0 +1,51 @@
+#results about estimation of size for Capon's statistic
+
+data1=as.matrix(capon_size_theta_1_000_rExp_n_5_40_m_5_40)
+rownames(data1)=colnames(data1)
+levelplot(data1,xlab="m",ylab="n",main="Exponential Distribution")
+data2=as.matrix(capon_size_theta_1_000_rGamma_m_5_40_n_5_40)
+rownames(data2)=colnames(data2)
+levelplot(data2,xlab="m",ylab="n",main="Gamma Distribution")
+data3=as.matrix(capon_size_theta_1_000_rNorm_n_5_40_m_5_40)
+rownames(data3)=colnames(data3)
+levelplot(data3,xlab="m",ylab="n",main="Normal Distribution")
+data4=as.matrix(capon_size_theta_1_000_rWeibull_m_5_40_n_5_40)
+rownames(data4)=colnames(data4)
+levelplot(data4,xlab="m",ylab="n",main="Weibull Distribution")
+
+#let m/N=lambda=0.5
+library(pbapply)
+library(lattice)
+exp=pbsapply(1:40, function(i) capon_rejection(i,i,rdist = rExp))
+normal=pbsapply(1:40, function(i) capon_rejection(i,i,rdist = rNorm))
+gamma=pbsapply(1:40, function(i) capon_rejection(i,i,rdist = rGamma))
+weibull=pbsapply(1:40, function(i) capon_rejection(i,i,rdist = rWeibull))
+logis=pbsapply(1:40, function(i) capon_rejection(i,i,rdist = rLogis))
+xyplot(exp+normal+gamma+weibull+logis~1:40,grid=TRUE,type="l",auto.key = TRUE,panel = function(...){
+  panel.xyplot(...)
+  panel.abline(h=0.05, col.line = "blue")
+},xlab = "Common value of m and n", ylab = "Estimate of alpha")
+
+#results about estimation of size for savage statistic
+data1=as.matrix(savage_size_theta_1_000_rExp_m_5_40_n_5_40)
+rownames(data1)=colnames(data1)
+levelplot(data1,xlab="m",ylab="n",main="Exponential Distribution")
+data2=as.matrix(savage_size_theta_1_000_rGamma_m_5_40_n_5_40)
+rownames(data2)=colnames(data2)
+levelplot(data2,xlab="m",ylab="n",main="Gamma Distribution")
+data3=as.matrix(savage_size_theta_1_000_rNorm_m_5_40_n_5_40)
+rownames(data3)=colnames(data3)
+levelplot(data3,xlab="m",ylab="n",main="Normal Distribution")
+data4=as.matrix(savage_size_theta_1_000_rWeibull_m_5_40_n_5_40)
+rownames(data4)=colnames(data4)
+levelplot(data4,xlab="m",ylab="n",main="Weibull Distribution")
+
+exp=pbsapply(1:40, function(i) savage_rejection(i,i,rdist = rExp))
+normal=pbsapply(1:40, function(i) savage_rejection(i,i,rdist = rNorm))
+gamma=pbsapply(1:40, function(i) savage_rejection(i,i,rdist = rGamma))
+weibull=pbsapply(1:40, function(i) savage_rejection(i,i,rdist = rWeibull))
+logis=pbsapply(1:40, function(i) capon_rejection(i,i,rdist = rLogis))
+xyplot(exp+normal+gamma+weibull+logis~1:40,grid=TRUE,type="l",auto.key = TRUE,panel = function(...){
+  panel.xyplot(...)
+  panel.abline(h=0.05, col.line = "blue")
+},xlab = "Common value of m and n", ylab = "Estimate of alpha")
