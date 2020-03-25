@@ -48,7 +48,7 @@ find_rejection_matrix <- function(nvec, mvec,
   reject_prob
 }
 
-normality_matrix <- function(nvec, mvec, repl=1000,
+normality_matrix <- function(nvec, mvec, repl=4000,
                              simulate_stat= simulate_capon, #change this input to get results of different statistics
                              p = 0.05)
 {
@@ -56,19 +56,19 @@ normality_matrix <- function(nvec, mvec, repl=1000,
   pb <- txtProgressBar(style = 3, min = 1, max = length(mvec) * length(nvec), initial = 1)
   k <- 1
   #shapiro wilk test matrix
-  testmat = matrix(0, length(nvec), length(mvec))
-  rownames(testmat) <- nvec; colnames(testmat) <- mvec; 
+  testmat = matrix(0, length(mvec), length(nvec))
+  rownames(testmat) <- mvec; colnames(testmat) <- nvec; 
   for(i in nvec){
     for(j in mvec){
       data = replicate(repl, simulate_stat(i, j, theta = 1))
-      testmat[st(i), st(j)] = shapiro.test(data)$p.value
-      k <- k + 1 #pb
+      testmat[st(j), st(i)] = shapiro.test(data)$p.value
       setTxtProgressBar(pb, k) #pb
+      k <- k + 1 #pb
     }
   }
   close(pb) #pb
-  write.csv(testmat, sprintf("data/%s -- %s.csv", 
+  write.csv(testmat, sprintf("data/%s -- n-%s -- m-%s.csv", 
                                  as.character(substitute(simulate_stat)),
-                                 paste(nvec, collapse = ", ")))
+                                 paste(nvec, collapse = ", "), paste(mvec, collapse = ", ")))
   testmat
 }

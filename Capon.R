@@ -8,7 +8,7 @@ Expectation <- function(r,n, mu=0, sigma=1) {
   integrate(integrand,-Inf,Inf, r, n, mu, sigma)$value
 }
 #check if function is working properly
-mean(sapply(1:10000, function(x) sort(rnorm(10))[3]^2))
+mean(sapply(1:10000, function(x) sort(rnorm(60))[20]^2))
 
 #capon's statistic
 capon_stat <- function(R, N){
@@ -33,13 +33,13 @@ capon_stat_var <- function(n, m) {
   (m * n /((m + n) *(m + n - 1))) * (E2 - (n + m)) #isha dewan book page 124
 }
 
-#Returns rejection probability (null: theta=1/ alt: theta > 1)
+#Returns rejection probability (null: theta=1/ alt: theta < 1)
 capon_rejection = function(n, m, 
                            rdist = rNorm, theta=1,
                            repl = 1000, p = 0.05) #total replication, and level
 {
   s = replicate(repl, simulate_capon(n, m, rdist, theta))
-  crit = qnorm(p, mean = n, sd = sqrt(capon_stat_var(n, m)), lower.tail = lower.tail)
+  crit = qnorm(p, mean = n, sd = sqrt(capon_stat_var(n, m)), lower.tail = FALSE)
   s = sum(s > crit)/repl
 }
 
