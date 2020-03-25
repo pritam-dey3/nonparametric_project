@@ -61,9 +61,10 @@ normality_matrix <- function(nvec, mvec, repl=4000,
   for(i in nvec){
     for(j in mvec){
       data = replicate(repl, simulate_stat(i, j, theta = 1))
-      testmat[st(j), st(i)] = shapiro.test(data)$p.value
-      setTxtProgressBar(pb, k) #pb
+      data = scale(data, TRUE, TRUE)
+      testmat[st(j), st(i)] = ks.test(data, rnorm(repl))$p.value
       k <- k + 1 #pb
+      setTxtProgressBar(pb, k) #pb
     }
   }
   close(pb) #pb
