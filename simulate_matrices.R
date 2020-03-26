@@ -68,8 +68,7 @@ normality_matrix <- function(nvec, lambda, repl=4000,
   write.csv(testmat, sprintf("data/%s -- n-%s -- lbd-%.1f.csv", 
                                  as.character(substitute(simulate_stat)),
                                  paste(nvec, collapse = ", "), lambda))
-  testmat
 }
 
 nvec = seq(5, 30, by=5)
-normality_matrix(nvec, lambda = 1)
+normality_matrix(nvec, lambda = 0.5)
