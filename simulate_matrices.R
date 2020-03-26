@@ -48,28 +48,28 @@ find_rejection_matrix <- function(nvec, mvec,
   reject_prob
 }
 
-normality_matrix <- function(nvec, mvec, repl=4000,
+normality_matrix <- function(nvec, lambda, repl=4000,
                              simulate_stat= simulate_capon, #change this input to get results of different statistics
                              p = 0.05)
 {
   #progress bar
-  pb <- txtProgressBar(style = 3, min = 1, max = length(mvec) * length(nvec), initial = 1)
+  pb <- txtProgressBar(style = 3, min = 1, max = length(nvec), initial = 1)
   k <- 1
-  #shapiro wilk test matrix
-  testmat = matrix(0, length(mvec), length(nvec))
-  rownames(testmat) <- mvec; colnames(testmat) <- nvec; 
-  for(i in nvec){
-    for(j in mvec){
-      data = replicate(repl, simulate_stat(i, j, theta = 1))
-      data = scale(data, TRUE, TRUE)
-      testmat[st(j), st(i)] = ks.test(data, rnorm(repl))$p.value
-      k <- k + 1 #pb
-      setTxtProgressBar(pb, k) #pb
-    }
+  #create mvec
+  mvec = nvec * lambda
+  testmat = matrix(0, nrow=repl, ncol=length(nvec))
+  colnames(testmat) <- nvec; 
+  for(i in 1:length(nvec)){
+    testmat[, i] = replicate(repl, simulate_stat(nvec[i], mvec[i], theta = 1))
+    k <- k + 1 #pb
+    setTxtProgressBar(pb, k) #pb
   }
   close(pb) #pb
-  write.csv(testmat, sprintf("data/%s -- n-%s -- m-%s.csv", 
+  write.csv(testmat, sprintf("data/%s -- n-%s -- lbd-%.1f.csv", 
                                  as.character(substitute(simulate_stat)),
-                                 paste(nvec, collapse = ", "), paste(mvec, collapse = ", ")))
+                                 paste(nvec, collapse = ", "), lambda))
   testmat
 }
+
+nvec = seq(5, 30, by=5)
+normality_matrix(nvec, lambda = 1)
