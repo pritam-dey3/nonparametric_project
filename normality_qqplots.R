@@ -17,9 +17,9 @@ normality_approach <- function(stat){
   a2 = read.csv(sprintf("data2/simulate_%s -- n-5, 10, 15, 20, 25, 30 -- lbd-2.0.csv", stat))[,-1]
   a3 = read.csv(sprintf("data2/simulate_%s -- n-5, 10, 15, 20, 25, 30 -- lbd-0.5.csv", stat))[,-1]
   
-  p1 = sapply(colnames(a1), function(n) as.grob(qq(a1[,n], normal_sample, title = "lambda = 1", xl=sprintf("n = %s", n))))
-  p2 = sapply(colnames(a2), function(n) as.grob(qq(a2[,n], normal_sample, title = "lambda = 2", xl=sprintf("n = %s", n))))
-  p3 = sapply(colnames(a3), function(n) as.grob(qq(a3[,n], normal_sample, title = "lambda = 0.5", xl=sprintf("n = %s", n))))
+  p1 = sapply(colnames(a1), function(n) as.grob(qq(a1[,n], normal_sample, title = "lambda = 1", xl=n)))
+  p2 = sapply(colnames(a2), function(n) as.grob(qq(a2[,n], normal_sample, title = "lambda = 2", xl=n)))
+  p3 = sapply(colnames(a3), function(n) as.grob(qq(a3[,n], normal_sample, title = "lambda = 0.5", xl=n)))
   
   g = arrangeGrob(grobs = c(p1, p2, p3), nrow=3, ncol=6)
   ggsave("plots/qqplots.pdf", g, units = "in", height = 8, width = 16)
