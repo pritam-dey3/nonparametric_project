@@ -5,7 +5,7 @@ qq <- function(x, y, title="", xl="", yl=""){
   leny <- length(sy)
   if (leny < lenx)sx <- approx(1L:lenx, sx, n = leny)$y
   if (leny > lenx)sy <- approx(1L:leny, sy, n = lenx)$y
-  g = ggplot() + geom_point(aes(x=sx, y=sy))
+  g = ggplot() + geom_point(aes(x=sx, y=sy)) + ggtitle(title) + xlab(xl)
   g 
 }
 
