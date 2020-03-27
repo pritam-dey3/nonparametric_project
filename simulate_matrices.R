@@ -70,5 +70,6 @@ normality_matrix <- function(nvec, lambda, repl=4000,
                                  paste(nvec, collapse = ", "), lambda))
 }
 
-nvec = seq(5, 30, by=5)
-normality_matrix(nvec, lambda = 0.5)
+nvec = seq(10, 60, by=10)
+normality_matrix(nvec, lambda = 0.5, simulate_stat = simulate_savage)
+ 
