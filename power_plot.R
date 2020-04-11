@@ -1,4 +1,6 @@
-plot_power <- function(n, m, stat, distns){
+# plot the datas generated 
+
+plot_power <- function(n, m, stat, distns, title=""){
   require(lattice)
   data <- matrix(0, nrow=1000, ncol=length(distns))
   colnames(data) <- distns
@@ -8,15 +10,17 @@ plot_power <- function(n, m, stat, distns){
   }
   frml = paste(distns, collapse = " + ")
   frml = formula(sprintf("%s ~ theta", frml))
-  print(frml)
-  theta = seq(from = 0.2, to = 1, length.out = 1000)
+  theta = seq(from = 5, to = 1, length.out = 1000)
   data = data.frame(data, theta)
-  xyplot(frml, data=data, 
-         auto.key=TRUE, xlim=c(1.05, 0.15),
-         cex=0.6, type=c("p"), pch=19)
+  xyplot(frml, data=data,
+         auto.key=list(space="right"),
+         par.settings=simpleTheme(pch=19),
+         xlim=c(0.5, 5.5),
+         cex=0.6, type=c("p"), pch=19,
+         xlab = "theta", ylab = "Power", main=title)
 }
 
-plot_power(30, 30, "capon", c("Norm", "Logis", "Weibull", "Gamma", "Exp"))
+plot_power(20, 30, "capon", c("Exp", "Gamma", "Weibull", "Norm", "Logis"), "Capon's | m = 30, n = 20")
 xyplot(Norm + Logis + Weibull + Gamma + Exp ~ theta, data=a, 
-      auto.key=TRUE, xlim=c(1.05, 0.15),
+      key=list(space="right", text=distns), xlim=c(0.05, 5.95),
      cex=0.6, type=c("p"), pch=19)
