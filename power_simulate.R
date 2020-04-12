@@ -19,16 +19,20 @@ power_curve <- function(n, m, from=0.2, to=1, len=30,
   xyplot(power ~ theta, xlim = c(to + 0.2, from - 0.2))
 }
 
-power_curve(30, 30, len = 1000, rdist = rWeibull, stat_rejection = savage_rejection, repl=1000)
-power_curve(30, 30, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
-power_curve(30, 30, len = 1000, rdist = rExp, stat_rejection = savage_rejection, repl=1000)
-power_curve(30, 30, len = 1000, rdist = rGamma, stat_rejection = savage_rejection, repl=1000)
+power_curve(30, 30, len = 30, rdist = rWeibull, stat_rejection = savage_rejection, repl=500)
+power_curve(30, 30, len = 30, rdist = rNorm, stat_rejection = savage_rejection, repl=500)
+power_curve(30, 30, len = 30, rdist = rExp, stat_rejection = savage_rejection, repl=500)
+power_curve(30, 30, len = 30, rdist = rGamma, stat_rejection = savage_rejection, repl=500)
+
+power_curve(30, 30, len = 30, rdist = rWeibull, stat_rejection = capon_rejection, repl=500)
+power_curve(30, 30, len = 30, rdist = rNorm, stat_rejection = capon_rejection, repl=500)
+power_curve(30, 30, len = 30, rdist = rExp, stat_rejection = capon_rejection, repl=500)
+power_curve(30, 30, len = 30, rdist = rGamma, stat_rejection = capon_rejection, repl=500)
 
 power_curve(30, 20, len = 1000, rdist = rWeibull, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 20, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 20, len = 1000, rdist = rExp, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 20, len = 1000, rdist = rGamma, stat_rejection = savage_rejection, repl=1000)
-
 power_curve(20, 30, len = 1000, rdist = rWeibull, stat_rejection = savage_rejection, repl=1000)
 power_curve(20, 30, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
 power_curve(20, 30, len = 1000, rdist = rExp, stat_rejection = savage_rejection, repl=1000)

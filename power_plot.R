@@ -10,7 +10,7 @@ plot_power <- function(n, m, stat, distns, title=""){
   }
   frml = paste(distns, collapse = " + ")
   frml = formula(sprintf("%s ~ theta", frml))
-  theta = seq(from = 5, to = 1, length.out = 1000)
+  theta = seq(from = 5, to = 1, length.out = 1000) #we wanted to present with the alternate hypothesis theta>1
   data = data.frame(data, theta)
   xyplot(frml, data=data,
          auto.key=list(space="right"),
@@ -20,7 +20,7 @@ plot_power <- function(n, m, stat, distns, title=""){
          xlab = "theta", ylab = "Power", main=title)
 }
 
-plot_power(20, 30, "capon", c("Exp", "Gamma", "Weibull", "Norm", "Logis"), "Capon's | m = 30, n = 20")
-xyplot(Norm + Logis + Weibull + Gamma + Exp ~ theta, data=a, 
+plot_power(30, 20, "savage", c("Exp", "Gamma", "Weibull", "Norm", "Logis"), "Savage | m = 20, n = 30")
+ xyplot(Norm + Logis + Weibull + Gamma + Exp ~ theta, data=a, 
       key=list(space="right", text=distns), xlim=c(0.05, 5.95),
      cex=0.6, type=c("p"), pch=19)
