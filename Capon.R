@@ -30,7 +30,7 @@ simulate_capon <- function(n, m, rdist=rNorm, theta=1) { #rdist should be functi
 #function to find variance of capons statistic under null
 capon_stat_var <- function(n, m) {
   E2 <- sum(sapply(1:(n+m), function(i) Expectation(i, n + m)^2))
-  (m * n /((m + n) *(m + n - 1))) * (E2 - (n + m)) #isha dewan book page 124
+  (m * n /((m + n) *(m + n - 1))) * (E2 - (n + m)) #book page 124
 }
 
 #Returns rejection probability (null: theta=1/ alt: theta < 1)

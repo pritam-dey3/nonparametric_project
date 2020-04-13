@@ -1,4 +1,5 @@
- #modified functions to draw samples
+# modified functions to draw samples
+# this functions should be compiled at the first step
 rExp <- function(n, theta) {
   rexp(n, rate = 1/theta)
 }
